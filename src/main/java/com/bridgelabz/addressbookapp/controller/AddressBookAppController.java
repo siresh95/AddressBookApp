@@ -11,48 +11,62 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
 
+import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
+import com.bridgelabz.addressbookapp.dto.ResponseDTO;
 
 @RestController
 @RequestMapping("/addressbookapp")
-/*@RequestMapping:Used to set the class level URL.
- */
 public class AddressBookAppController {
-    /*@RequestMapping:Used to take the URL for displaying message.
-     * return:message.
+    private static final AddressBookDTO addressBookDTO = null;
+    /*RequestMapping:use to pass the URL.
+     * return:message get call successful.
      */
     @RequestMapping(value = { "/get" })
-    public ResponseEntity<String> getAddressBookData() {
-        return new ResponseEntity<String>("Get Call Success", HttpStatus.OK);
+    public ResponseEntity<ResponseDTO> getAddressBookData() {
+        AddressBookData addressbookData = null;
+        addressbookData = new AddressBookData(151, new AddressBookDTO("gulbarga", "karnatka"));
+        ResponseDTO respDTO = new ResponseDTO("Get call Successful:", addressbookData);
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
-    /*@GetMapping:used to pass the URL With Id.
-     * return:pass the message for particular id.
+    /*@GetMapping:passed URL with pinCod
+     * return:response which takes the Code and return city state.
      */
     @GetMapping("/get/{pinCode}")
-    public ResponseEntity<String> getAddressBookData(@PathVariable("pinCode") int pinCode) {
-        return new ResponseEntity<String>("Get Call Success for Id: " + pinCode, HttpStatus.OK);
+    public ResponseEntity<ResponseDTO> getAddressBookData(@PathVariable("pinCode") int pinCode) {
+        AddressBookData addressbookData = null;
+        addressbookData = new AddressBookData(pinCode, new AddressBookDTO("mumbai", "Maharashtra"));
+        ResponseDTO respDTO = new ResponseDTO("Get call for pinCode Successful:", addressbookData);
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
-    /*@PostMapping:used to pass the URL
-     * @RequestBody:pass the object.
-     * return:created fields with the values.
+    /*PostMapping:Use to pass the url.
+     * return:create the data by taking JSON file.
      */
     @PostMapping("/create")
-    public ResponseEntity<String> getAddressBookData(@RequestBody AddressBookDTO addressBookDTO) {
-        return new ResponseEntity<String>("Created AddessBook Data for: " +  addressBookDTO, HttpStatus.OK);
+    public ResponseEntity<ResponseDTO> addAddressBookData(@RequestBody AddressBookDTO addressbookDTO) {
+        AddressBookData addressbookData = null;
+        addressbookData = new AddressBookData(1, addressbookDTO);
+        ResponseDTO respDTO = new ResponseDTO("Create AddressBook Data:", addressbookData);
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
-    /*@PutMapping:use to update the specified value.
-     * return:updated value.
+    /*put method is use to update the data.
+     * by passing pinCode.
      */
-    @PutMapping("/update")
-    public ResponseEntity<String> updateAddressBookData(@RequestBody AddressBookDTO addressBookDTO) {
-        return new ResponseEntity<String>("Updated data Data for: " + addressBookDTO, HttpStatus.OK);
+    @PutMapping("/update/{pinCode}")
+    public ResponseEntity<ResponseDTO> updateAddressBookData(@PathVariable("pinCode") int pinCode,
+                                                             @RequestBody AddressBookDTO empPayrollDTO) {
+        AddressBookData addressbookData = null;
+        addressbookData = new AddressBookData(pinCode, addressBookDTO);
+        ResponseDTO respDTO = new ResponseDTO("Update AddressBook Successful:", addressbookData);
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
+
     }
-    /*DeleteMapping: use to pass the URL with id.
-     * return: delete the data of particular id.
+    /*DeleteMapping:paa the url with pinCode
+     * return:the message that the data got deleted by using the pinCode.
      */
-    @DeleteMapping("/delete/{empId}")
-    public ResponseEntity<String> deleteAddressBookData(@PathVariable("empId") int empId) {
-        return new ResponseEntity<String>("Delete call success for id: " + empId, HttpStatus.OK);
+    @DeleteMapping("/delete/{pinCode}")
+    public ResponseEntity<ResponseDTO> deleteAddressBookData(@PathVariable("pinCode") int pinCode) {
+        ResponseDTO respDTO = new ResponseDTO("Deleted Successful,Deleted Code:", pinCode);
+        return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
     }
 }
