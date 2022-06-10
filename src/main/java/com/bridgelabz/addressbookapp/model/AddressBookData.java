@@ -3,9 +3,9 @@ package com.bridgelabz.addressbookapp.model;
 import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
 
 public class AddressBookData {
+    public long pinCode;
     public String city;
     public String state;
-    public long pinCode;
 
     public AddressBookData(long pinCode, AddressBookDTO addressbookDTO) {
 
@@ -13,6 +13,14 @@ public class AddressBookData {
         this.state = addressbookDTO.state;
         this.city = addressbookDTO.city;
 
+    }
+
+    public long getPinCode() {
+        return pinCode;
+    }
+
+    public void setPinCode(long pinCode) {
+        this.pinCode = pinCode;
     }
 
     public String getCity() {
@@ -29,14 +37,6 @@ public class AddressBookData {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public long getPinCode() {
-        return pinCode;
-    }
-
-    public void setPinCode(long pinCode) {
-        this.pinCode = pinCode;
     }
 
 }
