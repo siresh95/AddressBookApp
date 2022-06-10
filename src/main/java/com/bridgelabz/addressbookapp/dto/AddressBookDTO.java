@@ -1,11 +1,10 @@
 package com.bridgelabz.addressbookapp.dto;
-
 import javax.validation.constraints.Pattern;
 
 public class AddressBookDTO {
     @Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\$]{2,}$", message = "Invalid State name")
     public String state;
-    @Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\$]{3,}$", message = "Invalid State name")
+    @Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\$]{3,}$", message = "Invalid city name")
     public String city;
 
     public AddressBookDTO(String state, String city) {
